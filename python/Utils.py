@@ -43,13 +43,16 @@ class Utils(object):
             From list of dictionaries, write all the data in a csv file.
             Data are modified before writting so you can read it easily with a simple text editor.
             All columns alignment are made by adding spaces after values/keys.
-            This function do not corrupt your input data
+            This function do not corrupt your input data and work even if dictionnaries don't have the same keys.
 
             :param data: list of dictionaries
             :param fileName: output csv file name
             :param path: file path
-            :type data: Dictionary list
-            :type fileName
+            :param path: file path
+            :type data: dictionary list
+            :type fileName : string
+            :type path : string
+            :type valueDelimiter : string
 
             :Example:
             
@@ -59,7 +62,6 @@ class Utils(object):
             |value2  |VeryLongValue2|value2          |              |
             |value3  |              |value3          |VeryLongValue3|
 
-            It work even if dictionnaries don't have the same keys.
         """
 
         #test path and data lenght before starting
