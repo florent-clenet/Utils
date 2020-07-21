@@ -38,14 +38,10 @@ Dico4['KEYONE'] = '4'
 Dico4['Signature'] = 'ThisIsMyPersonalSignature'
 Dico4['ActivationDate'] = '18/07/2020'
 
-
 ListTest = list()
 ListTest.append(Dico1)
 ListTest.append(Dico2)
 ListTest.append(Dico3)
 ListTest.append(Dico4)
-myUtils = Utils()
 
-print(myUtils.list2csv.__doc__)
-
-myUtils.list2csv(ListTest,"report.csv")
+Utils.list2csv(ListTest,"report.csv",valueDelimiter='|')
