@@ -1,19 +1,31 @@
 import csv
 import os
 import copy
+import sys
+
 
 class Utils(object):
+
+    @staticmethod
+    def ProgressBar(currentIndent=0, maxIndent=1):
+        BAR_SIZE = 20
+        bar = (currentIndent + 1) / maxIndent
+        sys.stdout.write('\r')
+        sys.stdout.write("[%-20s] %d%%" % ('='*int(BAR_SIZE*bar), 100*bar))
+        #sys.stdout.flush()
 
     @staticmethod
     def __sortKeysList(data):
         """
             Return listed keys from dict list
         """
+        print("-- in progress : Sort all keys from dictionary list --")
         allKeys = list()
         for x in range(0, len(data)):
-            allKeys += copy.deepcopy(list(data[x].keys())) #copy all keys
+            allKeys += list(data[x].keys()) #copy all keys
         #clean dupicated keys
         cleanKeys = list(dict.fromkeys(allKeys))
+        print(" -- Done! --")
         return cleanKeys
         #All keys are listed, no clone anymore
 
@@ -74,6 +86,7 @@ class Utils(object):
                 keys = list()
                 keys = Utils.__sortKeysList(data)
                 
+                print("-- Compute columns width --")
                 #add key length in front of key name (for column width)
                 #example : KeyOne : 6, KeyTwo : 6, KeyThree : 8
                 ColumnWidth = dict()
@@ -88,7 +101,7 @@ class Utils(object):
                         if (ColumnWidth[keys[x]]) < width:
                             ColumnWidth[keys[x]] = width
                 #all column width are now listed
-                
+                print(" -- Done! --")
                 #copy keys list
                 keysShift = keys.copy()
                 #add space shift in keys
@@ -97,11 +110,14 @@ class Utils(object):
                     keysShift[i] = keysShift[i] + ((ColumnWidth[keys[i]] - len(str(keysShift[i]))) * " ")
                 
                 #use csv.writer to write keys with space shift
+                print("Start csv edition")
                 writer = csv.writer(csvfile,delimiter=str(valueDelimiter), quoting=csv.QUOTE_MINIMAL)
                 writer.writerow(keysShift)
 
                 #writerow all value for each key by calling __dict_to_list
                 for i in range (0, len(data)):
+                    Utils.ProgressBar(i,len(data))
                     writer.writerow(Utils.__dict_to_list(copy.deepcopy(data[i]), keys, ColumnWidth))
+                print("\n -- Job Done! --")
         else: print("ERROR : no input data")
 
