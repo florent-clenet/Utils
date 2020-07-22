@@ -38,10 +38,17 @@ Dico4['KEYONE'] = '4'
 Dico4['Signature'] = 'ThisIsMyPersonalSignature'
 Dico4['ActivationDate'] = '18/07/2020'
 
-ListTest = list()
-ListTest.append(Dico1)
-ListTest.append(Dico2)
-ListTest.append(Dico3)
-ListTest.append(Dico4)
 
+ListTest = list()
+listSize = 1000000
+
+print("Dictionary list in creation:")
+#This test will create list with 4M lines
+for i in range (0,listSize):
+    Utils.ProgressBar(i,listSize)
+    ListTest.append(Dico1)
+    ListTest.append(Dico2)
+    ListTest.append(Dico3)
+    ListTest.append(Dico4)
+print("\n -- Done! --")
 Utils.list2csv(ListTest,"report.csv",valueDelimiter='|')
